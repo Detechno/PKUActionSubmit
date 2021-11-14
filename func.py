@@ -118,7 +118,12 @@ def write_reason(driver, reason):
         f'{reason}')
     time.sleep(0.1)
 
+def write_d_reason(driver, d_reason):
+    driver.find_element_by_class_name('el-textarea__inner').send_keys(
+        f'{d_reason}')
+    time.sleep(0.1)
 
+    
 def write_track(driver, track):
     driver.find_elements_by_class_name('el-textarea__inner')[1].send_keys(
         f'{track}')
@@ -152,7 +157,7 @@ def submit(driver):
     time.sleep(0.1)
 
 
-def fill_out(driver, campus, reason, destination, track):
+def fill_out(driver, campus, reason, d_reason, destination, track):
     print('开始填报出校备案')
 
     print('选择出校/入校    ', end='')
@@ -165,6 +170,10 @@ def fill_out(driver, campus, reason, destination, track):
 
     print('填写出入校事由    ', end='')
     write_reason(driver, reason)
+    print('Done')
+    
+    print('出入校事由详细描述    ', end='')
+    write_d_reason(driver, d_reason)
     print('Done')
 
     print('选择出校目的地    ', end='')
@@ -181,7 +190,7 @@ def fill_out(driver, campus, reason, destination, track):
     print('出校备案填报完毕！')
 
 
-def fill_in(driver, campus, reason, habitation, district, street):
+def fill_in(driver, campus, reason, d_reason, habitation, district, street):
     print('开始填报入校备案')
 
     print('选择出校/入校    ', end='')
@@ -190,6 +199,10 @@ def fill_in(driver, campus, reason, habitation, district, street):
 
     print('填写出入校事由    ', end='')
     write_reason(driver, reason)
+    print('Done')
+    
+    print('出入校事由详细描述    ', end='')
+    write_d_reason(driver, d_reason)
     print('Done')
 
     if habitation != '北京':
@@ -238,17 +251,17 @@ def wechat_notification(userName, sckey):
     #     print(str(response['errno']) + ' error: ' + response['errmsg'])
 
 
-def run(driver, userName, password, campus, reason, destination, track,
+def run(driver, userName, password, campus, reason, d_reason, destination, track,
         habitation, district, street, capture, path, wechat, sckey):
     login(driver, userName, password)
     print('=================================')
 
     go_to_application_out(driver)
-    fill_out(driver, campus, reason, destination, track)
+    fill_out(driver, campus, reason, d_reason, destination, track)
     print('=================================')
 
     go_to_application_in(driver, userName, password)
-    fill_in(driver, campus, reason, habitation, district, street)
+    fill_in(driver, campus, reason, d_reason, habitation, district, street)
     print('=================================')
 
     if capture:
