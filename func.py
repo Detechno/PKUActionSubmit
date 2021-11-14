@@ -96,9 +96,17 @@ def select_campus(driver, campus):
             (By.XPATH, f'//li/span[text()="{campus}"]')))
     driver.find_element_by_xpath(f'//li/span[text()="{campus}"]').click()
 
+    
+def select_reason(driver, reason):
+    driver.find_elements_by_class_name('el-select')[2].click()
+    WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located(
+            (By.XPATH, f'//li/span[text()="{reason}"]')))
+    driver.find_element_by_xpath(f'//li/span[text()="{reason}"]').click()
+    
 
 def select_destination(driver, destination):
-    driver.find_elements_by_class_name('el-select')[2].click()
+    driver.find_elements_by_class_name('el-select')[3].click()
     WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(
             (By.XPATH, f'//li/span[text()="{destination}"]')))
@@ -106,18 +114,19 @@ def select_destination(driver, destination):
 
 
 def select_district(driver, district):
-    driver.find_elements_by_class_name('el-select')[3].click()
+    driver.find_elements_by_class_name('el-select')[4].click()
     WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(
             (By.XPATH, f'//li/span[text()="{district}"]')))
     driver.find_element_by_xpath(f'//li/span[text()="{district}"]').click()
 
 
+'''
 def write_reason(driver, reason):
     driver.find_element_by_class_name('el-textarea__inner').send_keys(
         f'{reason}')
     time.sleep(0.1)
-
+'''
 def write_d_reason(driver, d_reason):
     driver.find_element_by_class_name('el-textarea__inner').send_keys(
         f'{d_reason}')
@@ -169,7 +178,7 @@ def fill_out(driver, campus, reason, d_reason, destination, track):
     print('Done')
 
     print('填写出入校事由    ', end='')
-    write_reason(driver, reason)
+    select_reason(driver, reason)
     print('Done')
     
     print('出入校事由详细描述    ', end='')
@@ -198,7 +207,7 @@ def fill_in(driver, campus, reason, d_reason, habitation, district, street):
     print('Done')
 
     print('填写出入校事由    ', end='')
-    write_reason(driver, reason)
+    select_reason(driver, reason)
     print('Done')
     
     print('出入校事由详细描述    ', end='')
